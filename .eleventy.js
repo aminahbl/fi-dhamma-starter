@@ -4,12 +4,6 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
 
 module.exports = function (eleventyConfig) {
-  // Disable automatic use of your .gitignore
-  eleventyConfig.setUseGitIgnore(false);
-
-  // Merge data instead of overriding
-  eleventyConfig.setDataDeepMerge(true);
-
   // human readable date
   eleventyConfig.addFilter("readableDate", (dateObj) => {
     return DateTime.fromJSDate(dateObj, { zone: "utc" }).toFormat(
