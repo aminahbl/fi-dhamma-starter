@@ -1,9 +1,12 @@
 ---
 layout: blog
+lang: en
+permalink: /en/blog/
+title: Blog
 ---
 
 <section class="mt-15">
-    {% set postslist = collections.post %}
+    {% set postslist = collections.posts_en %}
 
     {% for post in postslist | reverse %}
         <article class="my-8">
@@ -18,10 +21,9 @@ layout: blog
             </h2>
             <p class="text-base leading-6 text-gray-500 mb-3">
                 <time>
-                    {{ post.date | readableDate }}
-                    by
+                    {{ post.date | readableDate(lang) }}
+                    {{ "blog.by" | i18n(lang) }}
                     <a>{{ post.data.author }}</a>
-
                 </time>
             </p>
             {% if post.data.description %}
@@ -32,7 +34,7 @@ layout: blog
 
             <p>
                 <a href="{{ post.url | url }}" class="text-indigo-500 font-bold text-lg">
-                    Read more →
+                    {{ "blog.readMore" | i18n(lang) }} →
                 </a>
             </p>
 

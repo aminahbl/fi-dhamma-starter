@@ -1,35 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-      {{title}}
-    </title>
-    {% if description %}
-      <meta name="description" content="{{description}}"/>
-    {% endif %}
-    {% block head %}{% endblock %}
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
-    {% if prism == true %}
-      <link rel="stylesheet" type="text/css" href="/static/css/prism-tomorrow.css">
-    {% endif %}
-  </head>
-  <body>
-    {% include "./partials/navbar.html" %}
+<html lang="{{ lang or 'fi' }}" dir="{{ languages.config[lang or 'fi'].dir }}">
 
-    {{ content | safe }}
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {{title}} - {{ "site.title" | i18n(lang or 'fi') }}
+  </title>
+  <meta name="description" content="{{ description or ('site.description' | i18n(lang or 'fi')) }}" />
+  <meta name="author" content="{{ 'site.author' | i18n(lang or 'fi') }}" />
 
-    {% include "./partials/footer.html" %}
+  <!-- Language alternates -->
+  <link rel="alternate" hreflang="fi" href="{{ page.url | switchLangUrl(lang, 'fi') }}">
+  <link rel="alternate" hreflang="en" href="{{ page.url | switchLangUrl(lang, 'en') }}">
+  {% block head %}{% endblock %}
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+  {% if prism == true %}
+  <link rel="stylesheet" type="text/css" href="/static/css/prism-tomorrow.css">
+  {% endif %}
+</head>
 
-    <script src="/static/js/alpine.js"></script>
+<body>
+  {% include "./partials/navbar.html" %}
 
-    {% if path == "home" %}
-      <!-- Netlify Identity Widget -->
-      <!-- Needed only if you are using Netlify Identity feature -->
-      <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    {% endif %}
+  {{ content | safe }}
 
-  </body>
+  {% include "./partials/footer.html" %}
+
+  <script src="/static/js/alpine.js"></script>
+
+  {% if path == "home" %}
+  <!-- Netlify Identity Widget -->
+  <!-- Needed only if you are using Netlify Identity feature -->
+  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  {% endif %}
+
+</body>
+
 </html>

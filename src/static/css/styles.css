@@ -17,3 +17,12 @@ body :not(pre) > code[class*="language-"],
 body pre[class*="language-"] {
   @apply bg-gray-800;
 }
+
+/* Language Switcher */
+.language-switcher {
+  @apply relative;
+}
+
+.language-switcher [x-show] {
+  @apply absolute right-0 top-full mt-2 z-50;
+}
